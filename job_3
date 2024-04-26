@@ -1,0 +1,328 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+class Student {
+private:
+    char name[20];
+    char id[20];
+    char classname[20];
+    char major[20];
+    char course1[20];
+    char course2[20];
+    char course3[20];
+    int score1;
+    int score2;
+    int score3;
+public:
+    void setname(char* n) {
+        strcpy(name, n);
+    }
+    void setid(char* i) {
+        strcpy(id, i);
+    }
+    void setclassname(char* c) {
+        strcpy(classname, c);
+    }
+    void setmajor(char* m) {
+        strcpy(major, m);
+    }
+    void setcourse1(char* c1) {
+        strcpy(course1, c1);
+    }
+    void setcourse2(char* c2) {
+        strcpy(course2, c2);
+    }
+    void setcourse3(char* c3) {
+        strcpy(course3, c3);
+    }
+    void setscore1(int s1) {
+        score1 = s1;
+    }
+    void setscore2(int s2) {
+        score2 = s2;
+    }
+    void setscore3(int s3) {
+        score3 = s3;
+    }
+    char* getname() {
+        return name;
+    }
+    char* getid() {
+        return id;
+    }
+    char* getclassname() {
+        return classname;
+    }
+    char* getmajor() {
+        return major;
+    }
+    char* getcourse1() {
+        return course1;
+    }
+    char* getcourse2() {
+        return course2;
+    }
+    char* getcourse3() {
+        return course3;
+    }
+    int getscore1() {
+        return score1;
+    }
+    int getscore2() {
+        return score2;
+    }
+    int getscore3() {
+        return score3;
+    }
+};
+int main() {
+    Student stu[100];
+    int n = 0; int m ;
+    while (1) {
+        cout << "————————" << endl;
+        cout << "请选择以下操作:" << endl;
+        cout << "1.添加学生信息" << endl;
+        cout << "2.删除学生信息" << endl;
+        cout << "3.修改学生信息" << endl;
+        cout << "4.查询学生信息" << endl;
+        cout << "5.显示全部信息" << endl;
+        cout << "6.统计分析成绩" << endl;
+        cout << "7.退出" << endl;
+        cout << "————————" << endl;
+        int op;
+        cin >> op;
+        if (op == 1) {
+            system("cls");
+            char name[20]; char id[20]; char classname[20]; char major[20]; char course1[20];
+            int score1; char course2[20]; int score2; char course3[20]; int score3;
+            cout << "请输入添加学生人数：" << endl;
+            cin >> m;
+            for (int i = 0; i < m; i++) {
+                cout << "学生姓名||学号|| 班级||专业||第一门课程：成绩||第二门课程：成绩||第三门课程：成绩" << endl;
+                cin >> name >> id >> classname >> major >> course1 >> score1 >> course2 >> score2 >> course3 >> score3;
+                stu[i].setname(name);
+                stu[i].setid(id);
+                stu[i].setclassname(classname);
+                stu[i].setmajor(major);
+                stu[i].setcourse1(course1);
+                stu[i].setscore1(score1);
+                stu[i].setcourse2(course2);
+                stu[i].setscore2(score2);
+                stu[i].setcourse3(course3);
+                stu[i].setscore3(score3);
+                n++;
+            }
+            cout << "添加成功！" << endl;
+            system("pause");
+            system("cls");
+        }
+        else if (op == 2) {
+            system("cls");
+            cout << "请输入要删除的学生学号：" << endl;
+            char id[20];
+            cin >> id;
+            int i;
+            for (i = 0; i < n; i++) {
+                if (strcmp(stu[i].getid(), id) == 0) {
+                    break;
+                }
+            }
+            if (i == n) {
+                cout << "未找到该学生！" << endl;
+                system("pause");
+                system("cls");
+            }
+            else {
+                for (int j = i; j < n - 1; j++) {
+                    stu[j] = stu[j + 1];
+                }
+                n--;
+                cout << "删除成功！" << endl;
+                system("pause");
+                system("cls");
+            }
+        }
+        else if (op == 3) {
+            system("cls");
+            cout << "请输入要修改的学生学号：" << endl;
+            char id[20];
+            cin >> id;
+            int i;
+            for (i = 0; i < n; i++) {
+                if (strcmp(stu[i].getid(), id) == 0) {
+                    break;
+                }
+            }
+            if (i == n) {
+                cout << "未找到该学生！" << endl;
+            }
+            else {
+                cout << "请输入学生姓名：" << endl;
+                char name[20];
+                cin >> name;
+                stu[i].setname(name);
+                cout << "请输入学生学号：" << endl;
+                char id[20];
+                cin >> id;
+                stu[i].setid(id);
+                cout << "请输入学生班级：" << endl;
+                char classname[20];
+                cin >> classname;
+                stu[i].setclassname(classname);
+                cout << "请输入学生专业：" << endl;
+                char major[20];
+                cin >> major;
+                stu[i].setmajor(major);
+                cout << "请输入第一门课程名称：" << endl;
+                char course1[20];
+                cin >> course1;
+                stu[i].setcourse1(course1);
+                cout << "请输入第一门课程成绩：" << endl;
+                int score1;
+                cin >> score1;
+                stu[i].setscore1(score1);
+                cout << "请输入第二门课程名称：" << endl;
+                char course2[20];
+                cin >> course2;
+                stu[i].setcourse2(course2);
+                cout << "请输入第二门课程成绩：" << endl;
+                int score2;
+                cin >> score2;
+                stu[i].setscore2(score2);
+                cout << "请输入第三门课程名称：" << endl;
+                char course3[20];
+                cin >> course3;
+                stu[i].setcourse3(course3);
+                cout << "请输入第三门课程成绩：" << endl;
+                int score3;
+                cin >> score3;
+                stu[i].setscore3(score3);
+                cout << "修改成功！" << endl;
+                system("pause");
+                system("cls");
+            }
+        }
+        else if (op == 4) {
+            system("cls");
+            cout << "请输入要查询的学生学号：" << endl;
+            char id[20];
+            cin >> id;
+            int i;
+            for (i = 0; i < n; i++) {
+                if (strcmp(stu[i].getid(), id) == 0) {
+                    break;
+                }
+            }
+            if (i == n) {
+                cout << "未找到该学生信息！" << endl;
+                system("pause");
+                system("cls");
+            }
+            else {
+                cout << "学生姓名：" << stu[i].getname() << endl;
+                cout << "学生学号：" << stu[i].getid() << endl;
+                cout << "学生班级：" << stu[i].getclassname() << endl;
+                cout << "学生专业：" << stu[i].getmajor() << endl;
+                cout << "第一门课程 " << stu[i].getcourse1()<<"  ";
+                cout << "成绩：" << stu[i].getscore1() << endl;
+                cout << "第二门课程 " << stu[i].getcourse2()<<"  ";
+                cout << "成绩：" << stu[i].getscore2() << endl;
+                cout << "第三门课程 " << stu[i].getcourse3()<<"  ";
+                cout << "成绩：" << stu[i].getscore3() << endl;
+                system("pause");
+                system("cls");
+            }
+        }
+        else if (op == 5) {
+            system("cls");
+            cout << "-----------------------------------------------------------------------------------" << endl;
+            cout << "                              学生完整成绩信息单" << endl;
+            cout << "-----------------------------------------------------------------------------------" << endl;
+            
+            for (int i = 0; i < n; i++) {
+                cout << "学生姓名  学号  班级  专业  第一门课程: 成绩   第二门课程：成绩  第三门课程：成绩  " << endl;
+                cout<< "   " << stu[i].getname() << "     " << stu[i].getid() << "  " << stu[i].getclassname() << "   " << stu[i].getmajor() << "       " <<
+                    stu[i].getcourse1()<<"    " << stu[i].getscore1() <<"         " << stu[i].getcourse2() <<"    " << stu[i].getscore2() << "        " << stu[i].getcourse3() <<"    " << stu[i].getscore3() << endl;
+                cout << "-----------------------------------------------------------------------------------" << endl;
+               }
+            system("pause");
+            system("cls");
+        }
+        else if (op == 6) {
+            cout << "请选择统计和分析相关成绩的操作：" << endl;
+            cout << "1.班级平均成绩" << endl;
+            cout << "2.班级某一科最高分成绩" << endl;
+            cout << "3.班级某一科最低分成绩" << endl;
+            int op2;
+            cin >> op2;
+            if (op2 == 1) {
+                int sum = 0;
+                for (int i = 0; i < n; i++) {
+                    sum += stu[i].getscore1() + stu[i].getscore2() + stu[i].getscore3();
+                }
+                double avg = sum / (n * 3.0);
+                cout << "班级平均成绩为：" << avg << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (op2 == 2) {
+                cout << "请输入要查询的科目名称：" << endl;
+                char course[20];
+                cin >> course;
+                int maxscore = -1;
+                int temp=0;
+                for (int i = 0; i < n; i++) {
+                    if (strcmp(stu[i].getcourse1(), course) == 0 && stu[i].getscore1() > maxscore) {
+                        maxscore = stu[i].getscore1(); temp=i;
+                    }
+                    else if (strcmp(stu[i].getcourse2(), course) == 0 && stu[i].getscore2() > maxscore) {
+                        maxscore = stu[i].getscore2(); temp = i;
+                    }
+                    else if (strcmp(stu[i].getcourse3(), course) == 0 && stu[i].getscore3() > maxscore) {
+                        maxscore = stu[i].getscore3(); temp = i;
+                    }
+                }
+                if (maxscore == -1) {
+                    cout << "未找到该科目的相关信息！" << endl;
+                    system("pause");
+                    system("cls");
+                }
+                else {
+                    cout << "班级" << course << "科目最高分成绩为：" << maxscore <<"--" <<stu[temp].getname() << endl;
+                    system("pause");
+                    system("cls");
+                }
+            }
+            else if (op2 == 3) {
+                cout << "请输入要查询的科目名称：" << endl;
+                char course[20];
+                cin >> course;
+                int minscore = 101;
+                for (int i = 0; i < n; i++) {
+                    if (strcmp(stu[i].getcourse1(), course) == 0 && stu[i].getscore1() < minscore) {
+                        minscore = stu[i].getscore1();
+                    }
+                    else if (strcmp(stu[i].getcourse2(), course) == 0 && stu[i].getscore2() < minscore) {
+                        minscore = stu[i].getscore2();
+                    }
+                    else if (strcmp(stu[i].getcourse3(), course) == 0 && stu[i].getscore3() < minscore) {
+                        minscore = stu[i].getscore3();
+                    }
+                }
+                if (minscore == 101) {
+                    cout << "未找到该科目的相关信息！" << endl;
+
+                }
+                else {
+                    cout << "班级" << course << "科目最低分成绩为：" << minscore << endl;
+                    system("pause");
+                    system("cls");
+                }
+            }
+        }
+        else if (op == 7) {
+            break;
+        }
+    }
+    return 0;
+}
