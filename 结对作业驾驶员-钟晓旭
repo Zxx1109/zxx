@@ -1,0 +1,365 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <math.h>
+int n = 0, fuhao = 0,parenthese = 0, max, r, fl, res;
+int file;
+FILE* m; 
+void decimalsAnswer(int y[]);
+void mixDecimalsAnswer(int y[]);
+void integerAnswer(int y[]);
+void integer()  //简单运算，整数的四则运算
+{
+	int i, a, b, x[1000];
+	char c;
+	for (i = 1; i < n + 1; i++)
+	{
+		a = rand() % max;    //随机数获取
+		b = rand() % max;
+		if (fuhao == 1)
+		{
+			c = '+';
+			x[i] = a + b;
+		}
+		else if (fuhao == 2)
+		{
+			c = '-';
+			x[i] = a - b;
+		}
+		else if (fuhao == 3)
+		{
+			c = '*';
+			x[i] = a * b;
+		}
+		else if (fuhao == 4)
+		{
+			c = '/';
+			while (b == 0)
+			{
+				b = rand() % max;
+			}
+			x[i] = a / b;
+		}
+		if (file == 1)
+		{
+			printf("(%d) %d%c%d=\n", i, a, c, b);
+		}
+		else
+		{
+			fprintf(m, "(%d) %d%c%d=\n", i, a, c, b);
+		}
+	}
+	integerAnswer(x);   //获取答案
+}
+void  mixInteger()  //混合运算（整数）
+{
+	int i, a, b, c;
+	int x[1000];
+	char d, e;
+	for (i = 1; i < n + 1; i++)
+	{
+		a = rand() % max;
+		b = rand() % max;
+		c = rand() % max;
+		if (i % 4 == 0)    //  a-b*c,(a-b)*c
+		{
+			d = '-';
+			e = '*';
+			if (parenthese == 1)   //无括号
+			{
+				x[i] = a - b * c;
+			}
+			else             //有括号
+			{
+				x[i] = (a - b) * c;
+			}
+		}
+		else if (i % 3 == 0)    //a+b/c,(a+b)/c
+		{
+			d = '+';
+			e = '/';
+			while (c == 0)
+			{
+				c = rand() % max;
+			}
+			if (parenthese == 1)
+			{
+				x[i] = a + b / c;
+			}
+			else
+			{
+				x[i] = (a + b) / c;
+			}
+		}
+		else if (i % 2 == 0)    //a-b/c,(a-b)/c
+		{
+			d = '-';
+			e = '/';
+			while (c == 0)
+			{
+				c = rand() % max;
+			}
+			if (parenthese == 1)
+			{
+				x[i] = a - b / c;
+			}
+			else
+			{
+				x[i] = (a - b) / c;
+			}
+		}
+		else   //a+b*c,(a+b)*c
+		{
+			d = '+';
+			e = '*';
+			if (parenthese == 1)
+			{
+				x[i] = a + b * c;
+			}
+			else
+			{
+				x[i] = (a + b) * c;
+			}
+		}
+		if (file == 1)   //输出到屏幕
+		{
+			if (parenthese == 1)
+			{
+				printf("(%d) %d%c%d%c%d=\n", i, a, d, b, e, c);
+			}
+			else
+
+			{
+				printf("(%d) (%d%c%d)%c%d=\n", i, a, d, b, e, c);
+			}
+		}
+		else //输出到文件
+		{
+			if (parenthese == 1)
+			{
+				fprintf(m, "(%d) %d%c%d%c%d=\n", i, a, d, b, e, c);
+			}
+			else
+			{
+				fprintf(m, "(%d) (%d%c%d)%c%d=\n", i, a, d, b, e, c);
+			}
+		}
+	}
+	integerAnswer(x);   //获取答案
+}
+void integerAnswer(int y[])       //整数运算答案
+{
+	int i;
+	if (file == 1)      //输出到文件
+	{
+		printf("\n正确答案：\n");
+		for (i = 1; i < n + 1; i++)
+		{
+			printf("(%d) %d\n", i, y[i]);
+		}
+	}
+	else         //输出到屏幕
+	{
+		fprintf(m, "\n正确答案：\n");
+		for (i = 1; i < n + 1; i++)
+		{
+			fprintf(m, "(%d) %d\n", i, y[i]);
+		}
+	}
+}
+void decimals() {
+	// 生成包含小数的四则运算题目
+	int i, a, b, x[1000];
+	char c;
+	for (i = 1; i < n + 1; i++) {
+		a = rand() % max;    // 随机数获取
+		b = rand() % max;
+		if (fuhao == 1) {
+			c = '+';
+			x[i] = a + b;
+		}
+		else if (fuhao == 2) {
+			c = '-';
+			x[i] = a - b;
+		}
+		else if (fuhao == 3) {
+			c = '*';
+			x[i] = a * b;
+		}
+		else if (fuhao == 4) {
+			c = '/';
+			while (b == 0) {
+				b = rand() % max;
+			}
+			x[i] = a / b;
+		}
+		if (file == 1) {
+			printf("(%d) %.2f%c%.2f=\n", i, a, c, b);
+		}
+		else {
+			fprintf(m, "(%d) %.2f%c%.2f=\n", i, a, c, b);
+		}
+	}
+	decimalsAnswer(x);   // 获取答案
+}
+void decimalsAnswer(int y[]) {
+	int i;
+	if (file == 1) { // 输出到屏幕
+		printf("\n小数答案：\n");
+		for (i = 1; i < n + 1; i++) {
+			printf("(%d) %d\n", i, y[i]);
+		}
+	}
+	else { // 输出到文件
+		fprintf(m, "\n小数答案：\n");
+		for (i = 1; i < n + 1; i++) {
+			fprintf(m, "(%d) %d\n", i, y[i]);
+		}
+	}
+}
+
+void mixDecimals() {
+	// 生成包含小数和括号的四则运算题目
+	int i, a, b, c;
+	int x[1000];
+	char d, e;
+	for (i = 1; i < n + 1; i++) {
+		a = rand() % max;
+		b = rand() % max;
+		c = rand() % max;
+		if (i % 4 == 0) { // a-b*c, (a-b)*c
+			d = '-';
+			e = '*';
+			if (parenthese == 1) { // 无括号
+				x[i] = a - b * c;
+			}
+			else { // 有括号
+				x[i] = (a - b) * c;
+			}
+		}
+		else if (i % 3 == 0) { // a+b/c, (a+b)/c
+			d = '+';
+			e = '/';
+			while (c == 0) {
+				c = rand() % max;
+			}
+			if (parenthese == 1) {
+				x[i] = a + b / c;
+			}
+			else {
+				x[i] = (a + b) / c;
+			}
+		}
+		else if (i % 2 == 0) { // a-b/c, (a-b)/c
+			d = '-';
+			e = '/';
+			while (c == 0) {
+				c = rand() % max;
+			}
+			if (parenthese == 1) {
+				x[i] = a - b / c;
+			}
+			else {
+				x[i] = (a - b) / c;
+			}
+		}
+		else { // a+b*c, (a+b)*c
+			d = '+';
+			e = '*';
+			if (parenthese == 1) {
+				x[i] = a + b * c;
+			}
+			else {
+				x[i] = (a + b) * c;
+			}
+		}
+		if (file == 1) { // 输出到屏幕
+			if (parenthese == 1) {
+				printf("(%d) %.2f%c%.2f%c%.2f=\n", i, a, d, b, e, c);
+			}
+			else {
+				printf("(%d) (%.2f%c%.2f)%c%.2f=\n", i, a, d, b, e, c);
+			}
+		}
+		else { // 输出到文件
+			if (parenthese == 1) {
+				fprintf(m, "(%d) %.2f%c%.2f%c%.2f=\n", i, a, d, b, e, c);
+			}
+			else {
+				fprintf(m, "(%d) (%.2f%c%.2f)%c%.2f=\n", i, a, d, b, e, c);
+			}
+		}
+	}
+	mixDecimalsAnswer(x);   // 获取答案
+}
+void mixDecimalsAnswer(int y[]) {
+	int i;
+	if (file == 1) { // 输出到屏幕
+		printf("\n混合小数答案：\n");
+		for (i = 1; i < n + 1; i++) {
+			printf("(%d) %d\n", i, y[i]);
+		}
+	}
+	else { // 输出到文件
+		fprintf(m, "\n混合小数答案：\n");
+		for (i = 1; i < n + 1; i++) {
+			fprintf(m, "(%d) %d\n", i, y[i]);
+		}
+	}
+}
+
+int main()
+{
+	printf("\n\n\t*******************欢迎进入小学生四则运算程序*******************\n\n");
+	printf("\t- - - - - 本程序适用于小学生，其中小数均保留两位数计算- -- - - -  - - \n\n");
+	printf("1.请定制题目数量：");
+	scanf_s("%d", &n);
+	printf("\n2.请选择运算方法（1、加法 2、减法 3、乘法 4、除法 5、混合运算）：");
+	scanf_s("%d", &fuhao);
+	printf("\n3.请设置练习的最大数（如十以内、百以内等）：");
+	scanf_s("%d", &max);
+	printf("\n4.请设置是否有小数（1、无   2、有）：");
+	scanf_s("%d", &fl);
+	printf("\n5.请设置是否有括号（1、无   2、有）ps：此选项仅混合运算时选择，其他选项选1即可 ：");
+	scanf_s("%d", &parenthese);
+	printf("\n6.请设置输出方式（1、直接显示在屏幕上   2、输出到文件） ：");
+	scanf_s("%d", &file);
+	if (file == 2)
+	{
+		printf("\n已生成四则运算.txt文件~");
+	}
+	fopen_s(&m,"四则运算.txt", "w");
+	printf("\n\n");
+	if (fuhao != 5)
+	{
+		if (fl == 1)
+		{
+			integer();  //简单运算（无小数）
+		}
+		else
+		{
+			decimals();  //简单运算（有小数）
+		}
+	}
+	else
+	{
+		if (fl == 1)
+		{
+			mixInteger();  //混合运算（无小数、有无括号）
+		}
+
+		else
+		{
+			mixDecimals();  //混合运算（有小数、有无括号）
+		}
+	}
+	fclose(m);
+	printf("\n是否重新运行运行该程序?   <1>是   <2>退出\n");
+	scanf_s("%d", &res);
+	if (res == 1)
+	{
+		system("cls");  //清屏，重新运行
+		main();
+	}
+}
